@@ -45,7 +45,7 @@ int readSavedWeather() {
     return readFile.condition;
 }
 
-string filepath = "~/.jacobscommandlineweather.txt";
+string filepath = "/home/jacob/.jacobscommandlineweather.txt";
 FileData readFile() {
 
     FileData fd;
