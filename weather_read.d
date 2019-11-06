@@ -34,7 +34,7 @@ int compressAPICode(int code){
         case 450: // 400 level is not real
             goto case; // limit of 255 cases in a case range, so I need to split it up
         case 451:
-            ..   
+            ..
         case 599: // 500 level is rain
             return 3;
         case 600:

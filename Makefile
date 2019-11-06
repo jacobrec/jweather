@@ -12,6 +12,6 @@ install:
 	mv jweather_read /bin/jweather_read
 	cp ./bash-powerline.sh ~/.bash-powerline.sh
 
-clean: 
+clean:
 	rm jweather_sync*
 	rm jweather_read*

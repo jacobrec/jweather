@@ -12,7 +12,7 @@ void main() {
     }
 }
 
-int getWeather() {
+char[] getWeather() {
 
     string city_id;
     string api_key;
@@ -20,10 +20,13 @@ int getWeather() {
         ~ api_key;
 
     try {
-        return cast(int) parseJSON(get(url))["weather"][0]["id"].integer;
+        import std.stdio;
+        auto data = get(url);
+        writeln(data);
+        return data;
     }
     catch (CurlException e) {
-        return 800;
+        return [];
     }
 }
 
@@ -33,12 +36,27 @@ struct FileData {
     int temperature; // in units kelvin, but times 100; Ex) 25C = 298.15K = 29815;
 }
 
+int getTempFromWeather(char[] weather) {
+    if (weather == "") {
+        return 0;
+    }
+    return cast(int)
+        (parseJSON(weather)["main"]["temp"].floating * 100);
+}
+int getCodeFromWeather(char[] weather) {
+    if (weather == "") {
+        return 0;
+    }
+    return cast(int)
+        parseJSON(weather)["weather"][0]["id"].integer;
+}
 void refreshWeather() {
-    writeWeather(getWeather(), 0);
+    auto weather = getWeather();
+    writeWeather(getCodeFromWeather(weather), getTempFromWeather(weather));
 }
 
 bool shouldRefreshWeather() {
-    return (Clock.currTime().toUnixTime() - readFile().timestamp > 60 * 15);
+    return (Clock.currTime().toUnixTime() - readFile().timestamp > 0);
 }
 
 int readSavedWeather() {
@@ -55,12 +73,10 @@ FileData readFile() {
         fd.temperature = 0;
         writeFile(fd);
     }
-    else {
-        string[] lines = readText(filepath).split("\n");
-        fd.timestamp = to!int(lines[0]);
-        fd.condition = to!int(lines[1]);
-        fd.temperature = to!int(lines[2]);
-    }
+    string[] lines = readText(filepath).split("\n");
+    fd.timestamp = to!int(lines[0]);
+    fd.condition = to!int(lines[1]);
+    fd.temperature = to!int(lines[2]);
 
     return fd;
 }
