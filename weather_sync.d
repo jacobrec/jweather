@@ -56,7 +56,7 @@ void refreshWeather() {
 }
 
 bool shouldRefreshWeather() {
-    return (Clock.currTime().toUnixTime() - readFile().timestamp > 0);
+    return (Clock.currTime().toUnixTime() - readFile().timestamp) > 60*15;
 }
 
 int readSavedWeather() {
