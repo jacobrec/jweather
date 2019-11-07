@@ -86,7 +86,9 @@ void writeWeather(int code, int temp) {
     fd.timestamp = cast(int) Clock.currTime().toUnixTime();
     fd.condition = code;
     fd.temperature = temp;
-    writeFile(fd);
+    if (code != 0 && temp != 0) {
+        writeFile(fd);
+    }
 }
 
 void writeFile(FileData fd) {
