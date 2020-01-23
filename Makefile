@@ -1,3 +1,4 @@
+all: build install clean
 
 build:
 	ldc weather_read.d -of jweather_read
@@ -15,3 +16,6 @@ install:
 clean:
 	rm jweather_sync*
 	rm jweather_read*
+
+
+.PHONY: build install clean all
