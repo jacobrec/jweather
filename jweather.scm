@@ -1,4 +1,4 @@
-#!/usr/local/bin/guile
+#!/usr/bin/guile
 !#
 (define-module (jweather jweather)
   #:use-module (web client)
@@ -13,7 +13,7 @@
 ; (define api-key "00000000000000000000000000000000")
 ; (define filepath "/home/user/.data-file-for-jweather")
 ; (define city-id "0000000")
-; (define url (string-append "http://api.openweathermap.org/data/2.5/weather?id=" city-id "&APPID=" api-key))
+(define url (string-append "http://api.openweathermap.org/data/2.5/weather?id=" city-id "&APPID=" api-key))
 
 (define (get-data)
   (define-values (res data) (http-get url))
