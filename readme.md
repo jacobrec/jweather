@@ -2,3 +2,4 @@
 
 1) `./install.sh`
 
+2) `./jweather`
